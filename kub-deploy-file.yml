@@ -1,0 +1,30 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: akshatnewdeployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: akshatspringbootapp
+  template:
+    metadata:
+      labels:
+        app: akshatspringbootapp 
+    spec:
+      containers:
+        - name: akshatspringbootapp 
+          image: myacrrepo431.azurecr.io/akannanspringbootapp
+          ports:
+          - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: akshatnewservice
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 80 
+    selector:
+        app: akshatspringbootapp
